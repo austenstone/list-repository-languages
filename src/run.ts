@@ -3,6 +3,8 @@ import * as github from '@actions/github';
 
 interface Input {
   token: string;
+  org: string;
+  repo: string;
 }
 
 export function getInputs(): Input {
@@ -15,18 +17,14 @@ const run = async (): Promise<void> => {
   try {
     const input = getInputs();
     const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
-
-    const {
-      viewer: { login },
-    } = await octokit.graphql(`{ 
-      viewer { 
-        login
-      }
-    }`);
-
-    core.info(`Hello, ${login}!`);
+    const langResponse = await octokit.request(`GET /repos/${input.org}/${input.repo}/languages`);
+    core.debug(JSON.stringify({langResponse}))
+    const keys = Object.keys(langResponse.data);
+    core.setOutput('languages', JSON.stringify(keys));
   } catch (error) {
-    core.setFailed(error instanceof Error ? error.message : JSON.stringify(error))
+    core.startGroup(error instanceof Error ? error.message : JSON.stringify(error));
+    core.info(JSON.stringify(error, null, 2));
+    core.endGroup();
   }
 };
 
