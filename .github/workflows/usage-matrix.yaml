@@ -1,0 +1,24 @@
+name: Matrix Language Jobs
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: list-languages
+    outputs:
+      languages: ${{ steps.list-languages.outputs.languages }}
+
+  print:
+    needs: [run]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: ${{ fromJSON(needs.run.outputs.languages) }}
+    steps:
+      - run: echo ${{ matrix.language }}
