@@ -1,6 +1,6 @@
-name: TypeScript Action
+name: List Repositories Languages
 author: Austen Stone
-description: A TypeScript Action
+description: List a repositories languages using the GitHub API
 branding:
   icon: "list"
   color: "blue"
