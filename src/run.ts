@@ -10,6 +10,8 @@ interface Input {
 export function getInputs(): Input {
   const result = {} as Input;
   result.token = core.getInput('github-token');
+  result.owner = core.getInput('owner');
+  result.repo = core.getInput('repo');
   return result;
 }
 
