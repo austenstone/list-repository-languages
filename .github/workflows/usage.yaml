@@ -12,7 +12,7 @@ jobs:
       - uses: ./
         id: list-languages
     outputs:
-      repos: ${{ steps.list-languages.outputs.languages }}
+      languages: ${{ steps.list-languages.outputs.languages }}
 
   print:
     needs: [run]
