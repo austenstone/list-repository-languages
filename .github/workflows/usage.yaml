@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
-        id: get-org-repos
+        id: list-languages
     outputs:
-      repos: ${{ steps.get-org-repos.outputs.repos }}
+      repos: ${{ steps.list-languages.outputs.languages }}
 
   print:
     needs: [run]
