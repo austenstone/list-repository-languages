@@ -19,6 +19,10 @@ inputs:
     default: ${{ github.event.repository.name }}
     required: false
 
+outputs:
+  languages:
+    description: The languages of the repository as a JSON array
+
 runs:
   using: "node16"
   main: "dist/index.js"
