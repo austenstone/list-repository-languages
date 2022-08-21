@@ -10,13 +10,13 @@ inputs:
     description: The GitHub token used to create an authenticated client
     default: ${{ github.token }}
     required: false
-  org:
-    description: The name of the organization
-    default: ${{ github.organization }}
+  owner:
+    description: The owner of the repository
+    default: ${{ github.repository_owner }}
     required: false
   repo:
     description: The name of the repository
-    default: ${{ github.repository }}
+    default: ${{ github.event.repository.name }}
     required: false
 
 runs:

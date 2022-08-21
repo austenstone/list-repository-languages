@@ -3,7 +3,7 @@ import * as github from '@actions/github';
 
 interface Input {
   token: string;
-  org: string;
+  owner: string;
   repo: string;
 }
 
@@ -17,7 +17,7 @@ const run = async (): Promise<void> => {
   try {
     const input = getInputs();
     const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
-    const langResponse = await octokit.request(`GET /repos/${input.org}/${input.repo}/languages`);
+    const langResponse = await octokit.request(`GET /repos/${input.owner}/${input.repo}/languages`);
     core.debug(JSON.stringify({langResponse}))
     const keys = Object.keys(langResponse.data);
     core.setOutput('languages', JSON.stringify(keys));
