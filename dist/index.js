@@ -11799,6 +11799,8 @@ const github = __importStar(__nccwpck_require__(5438));
 function getInputs() {
     const result = {};
     result.token = core.getInput('github-token');
+    result.owner = core.getInput('owner');
+    result.repo = core.getInput('repo');
     return result;
 }
 exports.getInputs = getInputs;
@@ -11806,7 +11808,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const input = getInputs();
         const octokit = github.getOctokit(input.token);
-        const langResponse = yield octokit.request(`GET /repos/${input.org}/${input.repo}/languages`);
+        const langResponse = yield octokit.request(`GET /repos/${input.owner}/${input.repo}/languages`);
         core.debug(JSON.stringify({ langResponse }));
         const keys = Object.keys(langResponse.data);
         core.setOutput('languages', JSON.stringify(keys));
