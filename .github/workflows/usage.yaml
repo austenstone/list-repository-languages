@@ -10,10 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
-      - run: echo ${{ steps.list-repo-langs.outputs.languages }}
+        id: get-org-repos
+    outputs:
+      repos: ${{ steps.get-org-repos.outputs.repos }}
 
   print:
-    needs: run
+    needs: [run]
     runs-on: ubuntu-latest
     strategy:
       matrix:
