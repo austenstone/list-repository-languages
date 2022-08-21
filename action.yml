@@ -2,7 +2,7 @@ name: TypeScript Action
 author: Austen Stone
 description: A TypeScript Action
 branding:
-  icon: "plus"
+  icon: "list"
   color: "blue"
 
 inputs:
