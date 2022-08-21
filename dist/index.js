@@ -11810,15 +11810,11 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         core.debug(JSON.stringify({ langResponse }));
         const keys = Object.keys(langResponse.data);
         core.setOutput('languages', JSON.stringify(keys));
-        const { viewer: { login }, } = yield octokit.graphql(`{ 
-      viewer { 
-        login
-      }
-    }`);
-        core.info(`Hello, ${login}!`);
     }
     catch (error) {
-        core.setFailed(error instanceof Error ? error.message : JSON.stringify(error));
+        core.startGroup(error instanceof Error ? error.message : JSON.stringify(error));
+        core.info(JSON.stringify(error, null, 2));
+        core.endGroup();
     }
 });
 exports["default"] = run;
