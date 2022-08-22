@@ -12480,7 +12480,8 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         core.debug(JSON.stringify({ langResponse }));
         let languages = Object.keys(langResponse.data);
         if (input.codeql) {
-            languages = languages.filter(l => codeqlLanguageMapping[l]);
+            console.log
+            languages = languages.filter(l => codeqlLanguageMapping[l.toLowerCase()]);
         }
         core.setOutput('languages', JSON.stringify(languages));
     }
