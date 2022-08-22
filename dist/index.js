@@ -12455,17 +12455,34 @@ function getInputs() {
     result.token = core.getInput('github-token');
     result.owner = core.getInput('owner');
     result.repo = core.getInput('repo');
+    result.codeql = core.getBooleanInput('codeql');
     return result;
 }
 exports.getInputs = getInputs;
+const codeqlLanguageMapping = {
+    "csharp": "csharp",
+    "c#": "csharp",
+    "cpp": "cpp",
+    "c": "cpp",
+    "c++": "cpp",
+    "go": "go",
+    "java": "java",
+    "javascript": "javascript",
+    "typescript": "javascript",
+    "python": "python",
+    "ruby": "ruby"
+};
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const input = getInputs();
         const octokit = github.getOctokit(input.token);
         const langResponse = yield octokit.request(`GET /repos/${input.owner}/${input.repo}/languages`);
         core.debug(JSON.stringify({ langResponse }));
-        const keys = Object.keys(langResponse.data);
-        core.setOutput('languages', JSON.stringify(keys));
+        let languages = Object.keys(langResponse.data);
+        if (input.codeql) {
+            languages = languages.filter(l => codeqlLanguageMapping[l]);
+        }
+        core.setOutput('languages', JSON.stringify(languages));
     }
     catch (error) {
         core.startGroup(error instanceof Error ? error.message : JSON.stringify(error));
