@@ -45,6 +45,14 @@ jobs:
     steps:
       - run: echo ${{ matrix.language }}
 ```
+### CodeQL
+You can use the input `codeql` to map languages to codeql supported languages. [example](https://github.com/austenstone/.github/blob/main/.github/workflows/codeql.yml).
+```yml
+      - uses: austenstone/list-repository-languages@main
+        id: list-languages
+        with:
+          codeql: 'true'
+```
 
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):
@@ -54,6 +62,7 @@ Various inputs are defined in [`action.yml`](action.yml):
 | github&#x2011;token | Token to use to authorize. | ${{&nbsp;github.token&nbsp;}} |
 | owner | The repository owner | ${{ github.repository_owner }} |
 | repo | The repository name | ${{ github.event.repository.name }} |
+| codeql | Map to langauges supported by codeql | false |
 
 
 ## ⬅️ Outputs
