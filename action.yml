@@ -18,6 +18,10 @@ inputs:
     description: The name of the repository
     default: ${{ github.event.repository.name }}
     required: false
+  codeql:
+    description: Filter the languages to only those that are supported by CodeQL
+    default: 'false'
+    required: false
 
 outputs:
   languages:
